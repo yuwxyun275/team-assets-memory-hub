@@ -1,7 +1,9 @@
 # Roadmap
 
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
 This document describes **what we are building next**. For what has already shipped, see
-[CHANGELOG.md](./CHANGELOG.md).
+[CHANGELOG.md](CHANGELOG.md).
 
 Current release: **v2.0.1-beta.1**
 
@@ -112,8 +114,8 @@ Agent memory has no settled standard yet. What gets prioritized depends heavily 
 actually run into.
 
 - 🐞 Bugs and questions → [Issues](https://github.com/TencentCloud/TencentDB-Agent-Memory/issues) (we respond within 24 hours)
-- 🛠️ Code → read [CONTRIBUTING.md](./CONTRIBUTING.md) first
+- 🛠️ Code → read [CONTRIBUTING.md](CONTRIBUTING.md) first
 
 Contributions we especially welcome: **new client adapters** and **novel Memory Hub use cases**.
 
-[简体中文](./ROADMAP_CN.md)
+[简体中文](ROADMAP_CN.md)

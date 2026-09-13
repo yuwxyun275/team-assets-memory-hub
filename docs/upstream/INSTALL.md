@@ -1,6 +1,8 @@
 # TencentDB Agent Memory — Installation Guide
 
-← Back to [README.md](./README.md) · 简体中文: [INSTALL_CN.md](./INSTALL_CN.md)
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
+← Back to [README.md](../../README.md) · 简体中文: [INSTALL_CN.md](INSTALL_CN.md)
 
 This document covers three installation modes:
 
@@ -75,12 +77,12 @@ org structure in the panel and (b) pick them from within an agent session.
 >
 > | Agent | Docs |
 > |-------|------|
-> | CodeBuddy | [`agents/codebuddy/`](./agents/codebuddy/) |
-> | WorkBuddy | [`agents/workbuddy/`](./agents/workbuddy/) |
-> | Codex | [`agents/codex/`](./agents/codex/) |
-> | DeepSeek Harness | [`agents/dsh/`](./agents/dsh/) |
-> | OpenCode | [`agents/opencode/`](./agents/opencode/) |
-> | Hermes / OpenClaw / Others | [`agents/README.md`](./agents/README.md) |
+> | CodeBuddy | [`agents/codebuddy/`](../../agents/codebuddy/) |
+> | WorkBuddy | [`agents/workbuddy/`](../../agents/workbuddy/) |
+> | Codex | [`agents/codex/`](../../agents/codex/) |
+> | DeepSeek Harness | [`agents/dsh/`](../../agents/dsh/) |
+> | OpenCode | [`agents/opencode/`](../../agents/opencode/) |
+> | Hermes / OpenClaw / Others | [`agents/README.md`](../../agents/README.md) |
 
 ---
 
@@ -274,19 +276,19 @@ Open [http://localhost:8125](http://localhost:8125).
 
 ## Using Proxy with Agents
 
-The Proxy supports 8 agent clients. **Full setup instructions, adaptation details, and FAQs** for each agent are in the [`agents/`](./agents/) directory:
+The Proxy supports 8 agent clients. **Full setup instructions, adaptation details, and FAQs** for each agent are in the [`agents/`](../../agents/) directory:
 
 | Agent | Config method | Docs |
 |-------|---------------|------|
-| **Claude Code** | env vars or `~/.claude/settings.json` | [`agents/claude-code/`](./agents/claude-code/) |
-| **CodeBuddy** | `~/.codebuddy/models.json` | [`agents/codebuddy/`](./agents/codebuddy/) |
-| **WorkBuddy** | `~/.workbuddy/models.json` | [`agents/workbuddy/`](./agents/workbuddy/) |
-| **Codex** | `~/.codex/config.toml` (⚠️ first turn requires Plan mode) | [`agents/codex/`](./agents/codex/) |
-| **DeepSeek Harness (dsh)** | `~/.dsh/settings.yaml` + `.credentials.yaml` | [`agents/dsh/`](./agents/dsh/) |
-| **OpenCode** | `~/.config/opencode/opencode.json` | [`agents/opencode/`](./agents/opencode/) |
-| **Hermes** | `~/.hermes/config.yaml` + header preselect | [`agents/hermes/`](./agents/hermes/) |
-| **OpenClaw** | `~/.openclaw/openclaw.json` + header preselect | [`agents/openclaw/`](./agents/openclaw/) |
-| **Other platforms** | Header preselect (generic) | [`agents/README.md`](./agents/README.md) |
+| **Claude Code** | env vars or `~/.claude/settings.json` | [`agents/claude-code/`](../../agents/claude-code/) |
+| **CodeBuddy** | `~/.codebuddy/models.json` | [`agents/codebuddy/`](../../agents/codebuddy/) |
+| **WorkBuddy** | `~/.workbuddy/models.json` | [`agents/workbuddy/`](../../agents/workbuddy/) |
+| **Codex** | `~/.codex/config.toml` (⚠️ first turn requires Plan mode) | [`agents/codex/`](../../agents/codex/) |
+| **DeepSeek Harness (dsh)** | `~/.dsh/settings.yaml` + `.credentials.yaml` | [`agents/dsh/`](../../agents/dsh/) |
+| **OpenCode** | `~/.config/opencode/opencode.json` | [`agents/opencode/`](../../agents/opencode/) |
+| **Hermes** | `~/.hermes/config.yaml` + header preselect | [`agents/hermes/`](../../agents/hermes/) |
+| **OpenClaw** | `~/.openclaw/openclaw.json` + header preselect | [`agents/openclaw/`](../../agents/openclaw/) |
+| **Other platforms** | Header preselect (generic) | [`agents/README.md`](../../agents/README.md) |
 
 The proxy pipeline in order: `auth` (validates user_key) → `sessionInit`
 (interactive team/agent/task picker) → `injection` (L2/L3 memory + skill +
@@ -488,5 +490,5 @@ when at least one asset injector is on the pipeline.
 
 Additional installation modes (OpenClaw, Hermes, CodeBuddy, WorkBuddy, SDK, running from source,
 K8s, platform notes) — see
-[`deploy/global-images/README.md`](./deploy/global-images/README.md) and
-[`MemoryCore/README.md`](./MemoryCore/README.md).
+[`deploy/global-images/README.md`](../../deploy/global-images/README.md) and
+[`MemoryCore/README.md`](../../MemoryCore/README.md).

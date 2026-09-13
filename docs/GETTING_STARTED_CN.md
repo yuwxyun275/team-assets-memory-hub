@@ -1,5 +1,7 @@
 # 从源码安装与体验
 
+[返回文档导航](README.md) · [项目首页](../README.md)
+
 ## 1. 安装与构建
 
 在仓库根目录执行。建议 Node 22 LTS（最低 22.16），Python 3.9+。需要 Git、npm 和网络访问 npm registry。部分可选原生依赖没有适配预编译包时，需要本机 C/C++ 构建工具。
@@ -88,4 +90,4 @@ node scripts/walkthrough-service.mjs stop output/walkthrough-<编号>
 - 体验数据与凭据：`output/walkthrough-*`，默认不提交。
 - 源码入口：`agents/codebuddy/cli.mjs`、`scripts/team-assets.mjs`。
 
-上游通用部署方式见根目录 INSTALL 文档，预构建镜像不等于本竞赛扩展源码的构建产物。不要把本地 `output/`、数据库、原始会话和模型配置加入公开仓库。
+上游通用部署方式见 [归档安装说明](upstream/INSTALL_CN.md)，预构建镜像不等于本竞赛扩展源码的构建产物。不要把本地 `output/`、数据库、原始会话和模型配置加入公开仓库。

@@ -1,6 +1,8 @@
 # TencentDB Agent Memory 安装指南（简体中文）
 
-← 返回 [README_CN.md](./README_CN.md) · English: [INSTALL.md](./INSTALL.md)
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
+← 返回 [README_CN.md](../../README.md) · English: [INSTALL.md](INSTALL.md)
 
 本文覆盖三种安装形态：
 1. **完整三件套**：`memory-core` + `memory-hub` + `proxy` 一键起（推荐，能让 Claude Code 之类的 coding agent 直接用上团队记忆 / 知识 / skill 注入）
@@ -70,12 +72,12 @@ cd TencentDB-Agent-Memory/deploy/global-images
 >
 > | Agent | 文档 |
 > |-------|------|
-> | CodeBuddy | [`agents/codebuddy/`](./agents/codebuddy/) |
-> | WorkBuddy | [`agents/workbuddy/`](./agents/workbuddy/) |
-> | Codex | [`agents/codex/`](./agents/codex/) |
-> | DeepSeek Harness | [`agents/dsh/`](./agents/dsh/) |
-> | OpenCode | [`agents/opencode/`](./agents/opencode/) |
-> | Hermes / OpenClaw / 其他 | [`agents/README.md`](./agents/README.md) |
+> | CodeBuddy | [`agents/codebuddy/`](../../agents/codebuddy/) |
+> | WorkBuddy | [`agents/workbuddy/`](../../agents/workbuddy/) |
+> | Codex | [`agents/codex/`](../../agents/codex/) |
+> | DeepSeek Harness | [`agents/dsh/`](../../agents/dsh/) |
+> | OpenCode | [`agents/opencode/`](../../agents/opencode/) |
+> | Hermes / OpenClaw / 其他 | [`agents/README.md`](../../agents/README.md) |
 
 ---
 
@@ -255,15 +257,15 @@ Proxy 目前支持 8 类 AI Agent 客户端。每个 agent 的**完整接入配�
 
 | Agent | 配置方式 | 详细文档 |
 |-------|----------|----------|
-| **Claude Code** | 环境变量 或 `~/.claude/settings.json` | [`agents/claude-code/`](./agents/claude-code/) |
-| **CodeBuddy** | `~/.codebuddy/models.json` | [`agents/codebuddy/`](./agents/codebuddy/) |
-| **WorkBuddy** | `~/.workbuddy/models.json` | [`agents/workbuddy/`](./agents/workbuddy/) |
-| **Codex** | `~/.codex/config.toml`（⚠️ 首次需切 Plan 模式） | [`agents/codex/`](./agents/codex/) |
-| **DeepSeek Harness (dsh)** | `~/.dsh/settings.yaml` + `.credentials.yaml` | [`agents/dsh/`](./agents/dsh/) |
-| **OpenCode** | `~/.config/opencode/opencode.json` | [`agents/opencode/`](./agents/opencode/) |
-| **Hermes** | `~/.hermes/config.yaml` + Header 预选 | [`agents/hermes/`](./agents/hermes/) |
-| **OpenClaw** | `~/.openclaw/openclaw.json` + Header 预选 | [`agents/openclaw/`](./agents/openclaw/) |
-| **其他平台** | Header 预选（通用） | [`agents/README.md`](./agents/README.md) |
+| **Claude Code** | 环境变量 或 `~/.claude/settings.json` | [`agents/claude-code/`](../../agents/claude-code/) |
+| **CodeBuddy** | `~/.codebuddy/models.json` | [`agents/codebuddy/`](../../agents/codebuddy/) |
+| **WorkBuddy** | `~/.workbuddy/models.json` | [`agents/workbuddy/`](../../agents/workbuddy/) |
+| **Codex** | `~/.codex/config.toml`（⚠️ 首次需切 Plan 模式） | [`agents/codex/`](../../agents/codex/) |
+| **DeepSeek Harness (dsh)** | `~/.dsh/settings.yaml` + `.credentials.yaml` | [`agents/dsh/`](../../agents/dsh/) |
+| **OpenCode** | `~/.config/opencode/opencode.json` | [`agents/opencode/`](../../agents/opencode/) |
+| **Hermes** | `~/.hermes/config.yaml` + Header 预选 | [`agents/hermes/`](../../agents/hermes/) |
+| **OpenClaw** | `~/.openclaw/openclaw.json` + Header 预选 | [`agents/openclaw/`](../../agents/openclaw/) |
+| **其他平台** | Header 预选（通用） | [`agents/README.md`](../../agents/README.md) |
 
 Proxy 会依次做：`auth`（校验 user_key）→ `sessionInit`（选 team/agent/task
 表单）→ `injection`（把 L2/L3 记忆、skill、knowledge 注入 system prompt）→
@@ -441,5 +443,5 @@ pipeline 时才有意义。
 ## 更多
 
 其它安装形态（OpenClaw、Hermes、CodeBuddy、WorkBuddy、SDK、源码启动、K8s、平台说明），参见
-[`deploy/global-images/README.md`](./deploy/global-images/README.md) 与
-[`MemoryCore/README_CN.md`](./MemoryCore/README_CN.md)。
+[`deploy/global-images/README.md`](../../deploy/global-images/README.md) 与
+[`MemoryCore/README_CN.md`](../../MemoryCore/README_CN.md)。

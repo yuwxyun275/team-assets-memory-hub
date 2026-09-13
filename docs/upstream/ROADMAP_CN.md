@@ -1,6 +1,8 @@
 # 路线图
 
-本文档说明**我们接下来要做什么**。已经发布的内容请看 [CHANGELOG.md](./CHANGELOG.md)。
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
+本文档说明**我们接下来要做什么**。已经发布的内容请看 [CHANGELOG.md](CHANGELOG.md)。
 
 当前版本：**v2.0.1-beta.1**
 
@@ -101,8 +103,8 @@ v2.0.1-beta.1 提供了按时间范围过滤记忆列表。时间只能定位「
 Agent 记忆还没有形成公认标准。优先做什么，很大程度取决于大家实际遇到了什么问题。
 
 - 🐞 Bug 与问题 → [Issues](https://github.com/TencentCloud/TencentDB-Agent-Memory/issues)（24 小时内响应）
-- 🛠️ 贡献代码 → 请先阅读 [CONTRIBUTING_CN.md](./CONTRIBUTING_CN.md)
+- 🛠️ 贡献代码 → 请先阅读 [CONTRIBUTING_CN.md](CONTRIBUTING_CN.md)
 
 特别欢迎的贡献方向：**新框架适配器**、**Memory Hub 的新用法**等内容。
 
-[English](./ROADMAP.md)
+[English](ROADMAP.md)

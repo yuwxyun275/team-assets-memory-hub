@@ -1,5 +1,7 @@
 # Changelog
 
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
 本文件记录 **TencentDB Agent Memory** 的显著变更，格式遵循
 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循
 [Semantic Versioning](https://semver.org/)。
@@ -138,7 +140,7 @@
 ## [2.0.0] — 2026-08-03
 
 > **产品定位**：让 Agent 的经验、文档、代码沉淀成可复用资产，让下一位 Agent
-> 直接读档。详见 [README_CN.md](./README_CN.md)。
+> 直接读档。详见 [README_CN.md](../../README.md)。
 
 ### 🧠 四种记忆资产 · 首次完整开源
 
@@ -196,7 +198,7 @@ cp .env.example .env && $EDITOR .env    # 填入两组 LLM 参数
 `.admin-key`；自检 `/v3/meta/auth/verify` 后打印可复制的 `claude` 启动命令。
 `stop-all.sh --purge` 彻底清 volume + admin key，方便重置。
 
-详见 [INSTALL_CN.md](./INSTALL_CN.md) / [INSTALL.md](./INSTALL.md)。
+详见 [INSTALL_CN.md](INSTALL_CN.md) / [INSTALL.md](INSTALL.md)。
 
 ### 🧰 官方 SDK
 
@@ -235,7 +237,7 @@ cp .env.example .env && $EDITOR .env    # 填入两组 LLM 参数
 Docker 镜像 tag 独立于 npm 版本，本次镜像发的是 `:1.0.0-beta.1`。
 
 > **产品定位**：让 Agent 的经验、文档、代码沉淀成可复用资产，让下一位 Agent
-> 直接读档。详见 [README_CN.md](./README_CN.md)。
+> 直接读档。详见 [README_CN.md](../../README.md)。
 
 ### 🧠 四种记忆资产 · 首次完整开源
 
@@ -290,7 +292,7 @@ cp .env.example .env && $EDITOR .env    # 填入两组 LLM 参数
 `.admin-key`；自检 `/v3/meta/auth/verify` 后打印可复制的 `claude` 启动命令。
 `stop-all.sh --purge` 彻底清 volume + admin key，方便重置。
 
-详见 [INSTALL_CN.md](./INSTALL_CN.md) / [INSTALL.md](./INSTALL.md)。
+详见 [INSTALL_CN.md](INSTALL_CN.md) / [INSTALL.md](INSTALL.md)。
 
 ### 🧰 官方 SDK
 

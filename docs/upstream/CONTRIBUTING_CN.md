@@ -1,5 +1,7 @@
 # 贡献指南
 
+> **上游历史参考**：此文档保留上游原有设计、版本与操作说明，不代表当前竞赛扩展的安装入口、路线图或贡献政策。当前版本请看[安装与体验](../GETTING_STARTED_CN.md)、[贡献指南](../../CONTRIBUTING.md)和[文档导航](../README.md)。原文中的命令按其注明的工作目录执行。
+
 感谢你对 **TencentDB Agent Memory** 项目的关注！本文档覆盖仓库内所有开源模块
 （`MemoryCore` / `MemoryPanel` / `MemoryKnowledge` / `MemoryProxy` + SDK）的
 通用贡献流程。想深入某个模块的开发细节，看该模块目录下的
@@ -142,7 +144,7 @@ git config user.email "your-email@example.com"
 
 ## 许可证
 
-提交贡献即表示你同意你的代码将在 [MIT License](./LICENSE) 下许可。
+提交贡献即表示你同意你的代码将在 [MIT License](../../LICENSE) 下许可。
 
 ---
 

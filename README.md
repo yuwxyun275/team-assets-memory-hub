@@ -4,7 +4,7 @@
 
 **让团队经验进入编码任务，让每一次采用都有据可查。**
 
-[技术报告 PDF](docs/technical-report.pdf) · [源码安装与体验](docs/GETTING_STARTED_CN.md) · [资产学习机制](MemoryCore/docs/ASSET_LEARNING_CN.md) · [评测工具](evaluation/team_asset_bench/README.md)
+[文档导航](docs/README.md) · [技术报告 PDF](docs/technical-report.pdf) · [源码安装与体验](docs/GETTING_STARTED_CN.md) · [资产学习机制](MemoryCore/docs/ASSET_LEARNING_CN.md) · [评测工具](evaluation/team_asset_bench/README.md)
 
 [![CI](https://github.com/yuwxyun275/team-assets-memory-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/yuwxyun275/team-assets-memory-hub/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-217C86.svg)](LICENSE)
@@ -72,6 +72,10 @@ recalled → selected → injected → used → validated → contributed
 
 [📖 阅读完整技术报告](docs/technical-report.pdf)：按六项任务组织，包含流程图、15 张界面截图、Q/E/U 说明和同一案例的执行证据。
 
+## 📚 文档从哪里读
+
+首次使用先看 [源码安装与体验](docs/GETTING_STARTED_CN.md)。理解六项任务与真实案例请看 [技术报告](docs/technical-report.pdf)。开发、评测和上游参考资料统一收录在 [文档导航](docs/README.md)。
+
 ## 🚀 从源码开始
 
 需要 Node.js 22.16+、npm（Core 使用锁定的 pnpm）、Python 3.9+。建议使用 Node 22 LTS。完整 CLI 体验另需安装 CodeBuddy CLI，并在真实模式下配置自己的模型服务。
@@ -117,4 +121,4 @@ evaluation/       检索、归因、对照和费用评测
 docs/             技术报告、截图与安装说明
 ```
 
-欢迎通过本仓库的 Issues 与 Pull Requests 提交问题和改进。MIT 许可见 [LICENSE](LICENSE)，上游归属见 [UPSTREAM.md](UPSTREAM.md)。运行数据、登录凭据、模型密钥和原始私有会话不属于发布内容。
+欢迎按照 [贡献指南](CONTRIBUTING.md)，通过本仓库的 Issues 与 Pull Requests 提交问题和改进。MIT 许可见 [LICENSE](LICENSE)，上游归属见 [UPSTREAM.md](UPSTREAM.md)。运行数据、登录凭据、模型密钥和原始私有会话不属于发布内容。
