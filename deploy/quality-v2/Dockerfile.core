@@ -1,0 +1,5 @@
+FROM tdai-local/memory-core:2.0.1-best-practice-v8.4-fix
+COPY MemoryCore/src/asset-quality /app/src/asset-quality
+COPY MemoryCore/src/metadata /app/src/metadata
+COPY MemoryCore/src/gateway/server.ts /app/src/gateway/server.ts
+COPY MemoryCore/scripts/evaluate-asset-quality.ts /app/scripts/evaluate-asset-quality.ts

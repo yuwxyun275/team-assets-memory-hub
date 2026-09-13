@@ -1,0 +1,19 @@
+{
+  "task_id": "task-cache-outage-001",
+  "team_id": "team-feature-platform",
+  "agent_id": "agent-new-backend",
+  "title": "多租户功能开关读取接口间歇性 5xx",
+  "description": "多租户功能开关读取接口在 Redis 异常时持续超时并返回 5xx。请定位根因，实施最小且安全的修复，并提供可用于上线判断的验证证据。",
+  "repository": "team/feature-flag-service",
+  "version": "1.4",
+  "task_type": "bug_fix",
+  "token_budget": 760,
+  "max_assets": 4,
+  "target_paths": ["feature_flags/service.py"],
+  "required_capabilities": [
+    "project_constraint",
+    "failure_experience",
+    "code_knowledge",
+    "validation_workflow"
+  ]
+}

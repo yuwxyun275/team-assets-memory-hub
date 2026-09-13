@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Literal fake bearer value used only by the redaction unit test"
+condition = "AND"
+paths = ['''MemoryProxy/src/injection/injectors/__tests__/team-assets-evidence-observer\.test\.ts$''']
+regexTarget = "match"
+regexes = ['''Authorization: Bearer sk-mem-secretvalue''']

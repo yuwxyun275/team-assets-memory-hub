@@ -1,0 +1,402 @@
+{
+  "assets": [
+    {
+      "action": "调用 repository.get_published(tenant_id, key)，返回时标记 source=database；目标不存在或只有草稿时返回 None。",
+      "allowed_agents": [
+        "agent-new-backend",
+        "agent-senior-backend"
+      ],
+      "asset_id": "asset-wiki-tenant-fallback",
+      "asset_type": "project_constraint",
+      "claim": "缓存故障时只允许回退到同租户已发布的功能开关；禁止返回草稿或其他租户的数据。",
+      "content_hash": "c267511fc5a650b3f5b76bc2a80c7dbe3d7cc2ab1603f40a12c4cec729a39d41",
+      "content_ref": "",
+      "contributor": "agent-architect-product",
+      "deprecated": false,
+      "evidence_state": "authoritative",
+      "historical_effect": 0.95,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "multi-tenant",
+        "tenant",
+        "cache",
+        "Redis",
+        "fallback",
+        "published",
+        "draft",
+        "5xx"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "feature_flags/service.py",
+        "feature_flags/repository.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [
+        "跨租户数据泄漏",
+        "草稿功能开关泄漏"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/wiki/feature_flag_availability.md",
+      "source_type": "wiki",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "bug_fix",
+        "feature"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [
+        "test_outage_falls_back_to_published_flag_for_same_tenant",
+        "test_outage_never_leaks_another_tenant",
+        "test_outage_never_exposes_draft_flag"
+      ],
+      "title": "多租户功能开关缓存安全降级规范",
+      "token_cost": 168,
+      "updated_at": "2026-08-20T10:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "在 FeatureFlagService.get_flag 捕获 CacheUnavailable，禁止重试 Redis，且不修改共享仓库辅助接口。",
+      "allowed_agents": [
+        "agent-new-backend",
+        "agent-senior-backend"
+      ],
+      "asset_id": "asset-memory-retry-storm",
+      "asset_type": "failure_experience",
+      "claim": "历史上的三次重试热修复放大了工作线程饱和；已验证做法是只捕获一次 CacheUnavailable，并只读取一次持久化仓库。",
+      "content_hash": "c5b89e0fba5d174a24bcc74eb95e78ea9eb906b6f0e8195d137f1aa95985098a",
+      "content_ref": "",
+      "contributor": "agent-senior-backend",
+      "deprecated": false,
+      "evidence_state": "test_validated",
+      "historical_effect": 0.9,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "cache",
+        "Redis",
+        "timeout",
+        "5xx",
+        "retry",
+        "worker",
+        "fallback",
+        "recovery"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "feature_flags/service.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [
+        "请求内重试风暴",
+        "工作线程饱和"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/sessions/redis_outage_incident.jsonl",
+      "source_type": "chat_memory",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "bug_fix",
+        "performance"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [
+        "test_outage_does_not_retry_redis",
+        "test_recovery_uses_cache_without_database_fallback"
+      ],
+      "title": "Redis 故障失败经验：禁止请求内重试风暴",
+      "token_cost": 154,
+      "updated_at": "2026-08-18T09:30:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "定位并修改 feature_flags/service.py:FeatureFlagService.get_flag，不扩大共享仓库 API 的职责。",
+      "allowed_agents": [
+        "*"
+      ],
+      "asset_id": "asset-codegraph-cache-boundary",
+      "asset_type": "code_knowledge",
+      "claim": "FeatureFlagService.get_flag 是缓存访问边界并调用 FakeRedis.get；允许的降级目标是 FlagRepository.get_published。",
+      "content_hash": "9fdfa84f7a5f5f4297f1ffd4d138f2b1f2596854fbffb9d12195cd1f99677170",
+      "content_ref": "",
+      "contributor": "agent-architect-product",
+      "deprecated": false,
+      "evidence_state": "source_verified",
+      "historical_effect": 0.72,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "FeatureFlagService",
+        "get_flag",
+        "cache",
+        "Redis",
+        "repository",
+        "fallback",
+        "5xx"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "feature_flags/service.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [
+        "修改共享仓库接口可能影响无关调用方"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/code_graph/feature_flag_graph.json",
+      "source_type": "code_graph",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "bug_fix",
+        "feature"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [
+        "test_cache_hit_returns_tenant_flag",
+        "test_normal_path_does_not_read_database"
+      ],
+      "title": "功能开关缓存读取调用链",
+      "token_cost": 112,
+      "updated_at": "2026-08-29T12:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "运行全部公开与隐藏 pytest 用例，包括单次 Redis 访问和故障恢复后的断言。",
+      "allowed_agents": [
+        "*"
+      ],
+      "asset_id": "asset-skill-cache-fault-recovery",
+      "asset_type": "validation_workflow",
+      "claim": "QA/SRE 流程在同一次运行中验证正常、故障、租户隔离、无重试和恢复路径。",
+      "content_hash": "9291883de3380f6cdc2ab44a56a0057fe95d01b713d5f5085b91a96fe13c420a",
+      "content_ref": "",
+      "contributor": "agent-qa-sre",
+      "deprecated": false,
+      "evidence_state": "reviewed",
+      "historical_effect": 0.84,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "cache",
+        "fault",
+        "Redis",
+        "5xx",
+        "test",
+        "pytest",
+        "tenant",
+        "recovery"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "tests/test_service.py",
+        "hidden_tests/test_fallback.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [
+        "只测试故障路径会遗漏恢复路径回归"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/skills/cache_fault_recovery/SKILL.md",
+      "source_type": "skill",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "bug_fix",
+        "test"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [
+        "test_recovery_uses_cache_without_database_fallback",
+        "test_outage_does_not_retry_redis"
+      ],
+      "title": "缓存故障与恢复回归检查流程",
+      "token_cost": 132,
+      "updated_at": "2026-08-24T15:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "调用 get_any_by_key(key)。",
+      "allowed_agents": [
+        "*"
+      ],
+      "asset_id": "asset-wiki-legacy-global-lookup",
+      "asset_type": "project_constraint",
+      "claim": "早期单租户原型使用全局 key 查询。",
+      "content_hash": "7db8f110fc277ec8d45d582e672034d55ad381f9a637589fb6cf8cb644ad06fc",
+      "content_ref": "",
+      "contributor": "agent-senior-backend",
+      "deprecated": true,
+      "evidence_state": "corrected",
+      "historical_effect": 0.1,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "cache",
+        "fallback",
+        "key",
+        "Redis"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "feature_flags/repository.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [
+        "跨租户数据泄漏"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/wiki/legacy_global_fallback.md",
+      "source_type": "wiki",
+      "status": "approved",
+      "superseded_by": "asset-wiki-tenant-fallback",
+      "task_types": [
+        "bug_fix"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [],
+      "title": "旧版全局 key 回退方案",
+      "token_cost": 74,
+      "updated_at": "2024-01-10T00:00:00Z",
+      "version": "0.8",
+      "visibility": "team"
+    },
+    {
+      "action": "调整 JSON 字段顺序。",
+      "allowed_agents": [
+        "*"
+      ],
+      "asset_id": "asset-memory-log-formatting",
+      "asset_type": "failure_experience",
+      "claim": "计费日志约定 trace_id 字段位于首位。",
+      "content_hash": "79dadc8378821b568e64e20891a0b718b4eacdda3a36e073ca676cbbaa298e4c",
+      "content_ref": "",
+      "contributor": "agent-senior-backend",
+      "deprecated": false,
+      "evidence_state": "reviewed",
+      "historical_effect": 0.6,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "billing",
+        "logging",
+        "json",
+        "trace_id"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [
+        "billing/logging.py"
+      ],
+      "retrieval_handle": {},
+      "risks": [],
+      "runtime_asset_id": null,
+      "source_ref": "raw/sessions/log_formatting_session.jsonl",
+      "source_type": "chat_memory",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "config"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [],
+      "title": "Billing worker JSON 日志排序",
+      "token_cost": 88,
+      "updated_at": "2026-08-01T00:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "重启全部工作进程并执行全局重建。",
+      "allowed_agents": [
+        "*"
+      ],
+      "asset_id": "asset-skill-full-cache-rebuild",
+      "asset_type": "validation_workflow",
+      "claim": "故障后删除并重建全部缓存键。",
+      "content_hash": "1e134fd7d2bee3464f8dd4d7e874cc1b51fa17ea3dd84064f1007b389b18b3ed",
+      "content_ref": "",
+      "contributor": "agent-qa-sre",
+      "deprecated": false,
+      "evidence_state": "candidate",
+      "historical_effect": 0.2,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "cache",
+        "Redis",
+        "recovery",
+        "rebuild"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [],
+      "retrieval_handle": {},
+      "risks": [
+        "影响范围不可控"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/skills/full_rebuild/SKILL.md",
+      "source_type": "skill",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "bug_fix"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [],
+      "title": "全量缓存重建候选流程",
+      "token_cost": 96,
+      "updated_at": "2026-08-28T00:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    },
+    {
+      "action": "普通 Agent 不得采用。",
+      "allowed_agents": [
+        "agent-architect-product"
+      ],
+      "asset_id": "asset-private-architecture-draft",
+      "asset_type": "product_knowledge",
+      "claim": "用于权限回归验证的未公开架构草稿。",
+      "content_hash": "c267511fc5a650b3f5b76bc2a80c7dbe3d7cc2ab1603f40a12c4cec729a39d41",
+      "content_ref": "",
+      "contributor": "agent-architect-product",
+      "deprecated": false,
+      "evidence_state": "candidate",
+      "historical_effect": 0.0,
+      "injection_mode": "direct_context",
+      "keywords": [
+        "architecture"
+      ],
+      "native_asset_type": "",
+      "native_signals": {},
+      "paths": [],
+      "retrieval_handle": {},
+      "risks": [
+        "权限受限"
+      ],
+      "runtime_asset_id": null,
+      "source_ref": "raw/wiki/feature_flag_availability.md",
+      "source_type": "wiki",
+      "status": "approved",
+      "superseded_by": null,
+      "task_types": [
+        "docs"
+      ],
+      "team_id": "team-feature-platform",
+      "tests": [],
+      "title": "未公开的架构草稿",
+      "token_cost": 50,
+      "updated_at": "2026-08-29T00:00:00Z",
+      "version": "1.4",
+      "visibility": "team"
+    }
+  ],
+  "schema_version": "team-asset-catalog/v1"
+}

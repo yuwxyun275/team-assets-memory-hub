@@ -1,0 +1,12 @@
+{
+  "asset_id": "example-feature-graph",
+  "unit_id": "service.py/get_flag",
+  "asset_type": "code_graph",
+  "content_version": "example-v1",
+  "declared_scope": "example/flags 仓库 v1 的 get_flag 定义与调用关系切片。",
+  "body": "{\"repository\":\"example/flags\",\"revision\":\"v1\",\"nodes\":[{\"id\":\"get\",\"source_id\":\"code\",\"path\":\"service.py\",\"symbol\":\"get_flag\",\"start_line\":1,\"end_line\":2}],\"edges\":[{\"from\":\"get\",\"to\":\"missing-node\",\"kind\":\"calls\"}]}",
+  "sources": [{
+    "id": "code", "kind": "code", "locator": "service.py", "repository": "example/flags", "revision": "v1",
+    "content": "def get_flag(tenant_id, key):\n    return cache.get(tenant_id, key)\n"
+  }]
+}

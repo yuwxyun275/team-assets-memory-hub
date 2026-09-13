@@ -1,0 +1,210 @@
+._memory-tcd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+._memory-tcd-footer-hint {
+  font-size: 12px;
+  color: var(--tea-color-text-tertiary);
+}
+
+._memory-tcd-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+._memory-tcd-team-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--tea-color-border-primary-default);
+  border-radius: 4px;
+  background: var(--tea-color-bg-secondary-default);
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+
+._memory-tcd-team-avatar {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--tea-color-text-primary);
+  color: var(--tea-color-bg-primary-default);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+._memory-tcd-team-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+._memory-tcd-team-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tea-color-text-tertiary);
+}
+
+._memory-tcd-team-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+._memory-tcd-team-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tea-color-text-primary);
+}
+
+._memory-tcd-team-hint {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--tea-color-text-tertiary);
+  text-align: right;
+  line-height: 16px;
+}
+
+._memory-tcd-candidate-box {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--tea-color-border-primary-default);
+  border-radius: 6px;
+  background: var(--tea-color-bg-secondary-default);
+}
+
+._memory-tcd-candidate-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+._memory-tcd-candidate-box ol {
+  margin: 8px 0;
+  padding-left: 22px;
+  color: var(--tea-color-text-primary);
+  line-height: 1.7;
+}
+
+._memory-tcd-candidate-box p {
+  margin: 0;
+  color: var(--tea-color-text-secondary);
+  font-size: 12px;
+}
+
+._memory-tcd-recommendation-panel {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--tea-color-border-secondary-default);
+  border-radius: 6px;
+  background: var(--tea-color-bg-secondary-default);
+}
+
+._memory-tcd-recommendation-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: var(--tea-color-text-primary);
+}
+
+._memory-tcd-recommendation-title > span {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--tea-color-text-success);
+  background: var(--tea-color-bg-success-light);
+  font-size: 11px;
+}
+
+._memory-tcd-advanced {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 12px;
+  border: 1px solid var(--tea-color-border-secondary-default);
+  border-radius: 6px;
+  background: var(--tea-color-bg-primary-default);
+}
+
+._memory-tcd-advanced > summary {
+  padding: 10px 12px;
+  cursor: pointer;
+  color: var(--tea-color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+._memory-tcd-advanced-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 12px 12px;
+}
+
+._memory-tcd-field {
+  width: 100%;
+  min-width: 0;
+}
+
+._memory-tcd-field > label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--tea-color-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+._memory-tcd-field > p {
+  margin: 5px 0 0;
+  color: var(--tea-color-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+._memory-tcd-select-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--tea-color-text-primary);
+  font-size: 13px;
+}
+
+._memory-tcd-select-row select {
+  box-sizing: border-box;
+  min-width: 190px;
+  padding: 6px 9px;
+  border: 1px solid var(--tea-color-border-primary-default);
+  border-radius: 4px;
+  background: var(--tea-color-bg-primary-default);
+  color: var(--tea-color-text-primary);
+}
+
+@media (max-width: 720px) {
+  ._memory-tcd-select-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  ._memory-tcd-select-row select {
+    width: 100%;
+  }
+}

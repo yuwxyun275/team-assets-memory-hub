@@ -1,0 +1,15 @@
+{
+  "repository": "team/feature-flag-service",
+  "version": "1.4",
+  "nodes": [
+    {"id": "FeatureFlagService.get_flag", "path": "feature_flags/service.py", "kind": "method"},
+    {"id": "FakeRedis.get", "path": "feature_flags/cache.py", "kind": "method"},
+    {"id": "FlagRepository.get_published", "path": "feature_flags/repository.py", "kind": "method"}
+  ],
+  "edges": [
+    {"from": "FeatureFlagService.get_flag", "to": "FakeRedis.get", "type": "calls"},
+    {"from": "FeatureFlagService.get_flag", "to": "FlagRepository.get_published", "type": "approved_fallback"}
+  ],
+  "change_boundary": "FeatureFlagService.get_flag",
+  "risk": "修改 FlagRepository.get_published 会影响全部调用者；本次修复应收敛在 FeatureFlagService.get_flag 服务边界。"
+}

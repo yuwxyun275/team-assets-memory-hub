@@ -1,0 +1,37 @@
+name: Source checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: npx --yes pnpm@11.19.0 --dir MemoryCore install --frozen-lockfile
+      - run: npm ci --prefix MemoryProxy
+      - run: npm ci --prefix MemoryPanel
+      - run: npm ci --prefix MemoryPanel/web
+      - run: python3 -m pip install pytest
+      - run: npm run build --prefix MemoryCore
+      - run: npm run build --prefix MemoryPanel
+      - run: npm run test:oss --prefix MemoryCore
+      - run: node scripts/verify-competition.mjs
+      - run: npm pack --dry-run
+        working-directory: MemoryCore

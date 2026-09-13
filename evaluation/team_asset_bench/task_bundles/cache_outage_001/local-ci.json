@@ -1,0 +1,33 @@
+{
+  "schema_version": "team-asset-local-ci/v1",
+  "name": "多租户功能开关缓存故障独立验证",
+  "checks": [
+    {
+      "id": "project-regression",
+      "name": "项目已有回归测试",
+      "argv": ["python3", "-m", "pytest", "-q", "tests/test_service.py"],
+      "source": "project",
+      "test_ids": [
+        "test_cache_hit_returns_tenant_flag",
+        "test_cache_miss_returns_none",
+        "test_normal_path_does_not_read_database"
+      ],
+      "timeout_seconds": 60
+    },
+    {
+      "id": "independent-hidden-acceptance",
+      "name": "独立隐藏验收测试",
+      "argv": ["python3", "-m", "pytest", "-q", "hidden_tests/test_fallback.py"],
+      "source": "independent_hidden",
+      "test_ids": [
+        "test_outage_falls_back_to_published_flag_for_same_tenant",
+        "test_outage_never_leaks_another_tenant",
+        "test_outage_never_exposes_draft_flag",
+        "test_outage_does_not_retry_redis",
+        "test_recovery_uses_cache_without_database_fallback",
+        "test_missing_flag_during_outage_returns_none"
+      ],
+      "timeout_seconds": 60
+    }
+  ]
+}

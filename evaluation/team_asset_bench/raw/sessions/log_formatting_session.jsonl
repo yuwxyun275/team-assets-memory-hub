@@ -1,0 +1,3 @@
+{"event_id":"evt-log-001","role":"user","content":"请统一计费工作进程的 JSON 日志字段顺序。"}
+{"event_id":"evt-log-002","role":"assistant","content":"使用紧凑 JSON，并把 trace_id 放在首位方便排障。"}
+{"event_id":"evt-log-003","role":"tool","tool_name":"pytest","content":"日志格式快照测试通过。","passed":true}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "team-asset-benchmark-suite/v1",
+  "name": "TeamAssetBench",
+  "dataset_provenance": "curated_engineering_fixtures",
+  "task_noun": "工程任务",
+  "targets": {
+    "repositories": 4,
+    "scenario_types": 6,
+    "tasks": 48,
+    "arms": 7,
+    "repetitions": 3
+  },
+  "scenario_catalog": [
+    "fault_recovery",
+    "business_rule_change",
+    "cross_module_refactor",
+    "api_contract_change",
+    "performance_regression",
+    "test_and_release"
+  ],
+  "repositories": [
+    {
+      "repository": "team/feature-flag-service",
+      "fixture": "projects/feature_flag_service/base",
+      "language": "python",
+      "test_framework": "pytest"
+    }
+  ],
+  "tasks": [
+    {
+      "bundle": "cache_outage_001",
+      "scenario_type": "fault_recovery"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "asset_id": "example-cache-skill",
+  "unit_id": "cache-fault-recovery/SKILL.md",
+  "asset_type": "skill",
+  "content_version": "example-v1",
+  "declared_scope": "示例多租户 Feature Flag 服务 v1 的隔离测试环境；不修改生产缓存。",
+  "body": "---\nname: cache-fault-recovery\ndescription: 检查示例服务缓存故障和恢复\nresources:\n  - path: tests/test_cache_recovery.py\n    type: executable\n---\n\n先验证缓存正常读取；注入 CacheUnavailable，检查仅安全回退一次数据库且保留 tenant_id 与 published 过滤；移除故障，验证恢复读取缓存。失败立即停止并保留测试输出；不得修改生产环境。",
+  "sources": []
+}

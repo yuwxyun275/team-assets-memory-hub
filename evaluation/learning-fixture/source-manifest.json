@@ -1,0 +1,13 @@
+{
+  "repository": "synthetic/inventory-service",
+  "version": "fixture-v1",
+  "scope": "库存预留、重复请求和事务失败的恢复；仅用于开发验证",
+  "synthetic": true,
+  "visibility": "team",
+  "sources": [
+    { "path": "product.md", "kind": "document" },
+    { "path": "development.jsonl", "kind": "conversation" },
+    { "path": "inventory.py", "kind": "code" },
+    { "path": "test_inventory.py", "kind": "code" }
+  ]
+}

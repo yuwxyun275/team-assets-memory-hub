@@ -1,0 +1,5 @@
+{"event_id":"evt-hist-001","role":"user","content":"生产环境的功能开关读取在 Redis 不可用时持续超时。一次在请求内重试 Redis 三次的热修复反而加剧了工作线程饱和。"}
+{"event_id":"evt-hist-002","role":"assistant","content":"缓存只是优化层，不是事实来源。只在缓存边界捕获一次 CacheUnavailable，随后读取一次持久化仓库；请求路径禁止重试 Redis。","decision":"single-attempt-cache-then-repository"}
+{"event_id":"evt-hist-003","role":"tool","tool_name":"patch","content":"仅修改 FeatureFlagService.get_flag，没有改动共享仓库接口。","target":"feature_flags/service.py:FeatureFlagService.get_flag"}
+{"event_id":"evt-hist-004","role":"tool","tool_name":"pytest","content":"故障、租户隔离和恢复回归测试全部通过。","passed":true,"tests":["test_outage_does_not_retry_redis","test_recovery_uses_cache_without_database_fallback"]}
+{"event_id":"evt-hist-005","role":"assistant","content":"团队经验：不要把缓存故障放大成重试风暴；改动必须收敛在缓存服务边界，并保留缓存恢复路径。"}

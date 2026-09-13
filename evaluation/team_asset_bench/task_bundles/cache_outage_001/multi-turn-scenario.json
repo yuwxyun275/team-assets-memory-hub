@@ -1,0 +1,44 @@
+{
+  "schema_version": "team-asset-multi-turn-scenario/v1",
+  "name": "功能开关服务多轮开发会话",
+  "team_id": "team-feature-platform",
+  "agent_id": "agent-new-backend",
+  "turns": [
+    {
+      "query": "我刚接手功能开关服务，请先帮我定位配置读取的调用链和最小修改边界。",
+      "task_type": "bug_fix",
+      "target_paths": ["feature_flags/service.py"],
+      "expected_asset_ids": ["asset-codegraph-cache-boundary"]
+    },
+    {
+      "query": "Redis 不可用时接口会超时和 5xx，回退必须保证当前租户隔离，并且不能读到草稿配置。",
+      "task_type": "bug_fix",
+      "target_paths": ["feature_flags/service.py", "feature_flags/repository.py"],
+      "expected_asset_ids": ["asset-wiki-tenant-fallback", "asset-memory-retry-storm"]
+    },
+    {
+      "query": "准备实施最小修复，重点避免请求内反复重试 Redis 形成重试风暴。",
+      "task_type": "bug_fix",
+      "target_paths": ["feature_flags/service.py"],
+      "expected_asset_ids": ["asset-memory-retry-storm", "asset-wiki-tenant-fallback"]
+    },
+    {
+      "query": "代码改完后应该怎样验证故障、租户隔离以及 Redis 恢复路径？",
+      "task_type": "test",
+      "target_paths": ["tests/test_service.py", "hidden_tests/test_fallback.py"],
+      "expected_asset_ids": ["asset-skill-cache-fault-recovery"]
+    },
+    {
+      "query": "顺便帮我调整 billing worker 的 JSON 日志字段排序，这和缓存故障无关。",
+      "task_type": "config",
+      "target_paths": ["billing/logging.py"],
+      "expected_asset_ids": ["asset-memory-log-formatting"]
+    },
+    {
+      "query": "回到 Redis 故障修复，请再次检查当前租户已发布配置和恢复路径的验证是否完整。",
+      "task_type": "bug_fix",
+      "target_paths": ["feature_flags/service.py", "tests/test_service.py"],
+      "expected_asset_ids": ["asset-wiki-tenant-fallback", "asset-skill-cache-fault-recovery"]
+    }
+  ]
+}

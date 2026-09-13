@@ -1,0 +1,2 @@
+FROM tdai-local/memory-proxy:2.0.1-best-practice-v8.4-fix
+COPY MemoryProxy/src /app/src

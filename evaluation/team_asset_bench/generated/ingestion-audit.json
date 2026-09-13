@@ -1,0 +1,61 @@
+{
+  "assets": [
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-wiki-tenant-fallback",
+      "candidate_status": "authoritative",
+      "content_hash": "c267511fc5a650b3f5b76bc2a80c7dbe3d7cc2ab1603f40a12c4cec729a39d41",
+      "source_ref": "raw/wiki/feature_flag_availability.md"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-memory-retry-storm",
+      "candidate_status": "test_validated",
+      "content_hash": "c5b89e0fba5d174a24bcc74eb95e78ea9eb906b6f0e8195d137f1aa95985098a",
+      "source_ref": "raw/sessions/redis_outage_incident.jsonl"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-codegraph-cache-boundary",
+      "candidate_status": "source_verified",
+      "content_hash": "9fdfa84f7a5f5f4297f1ffd4d138f2b1f2596854fbffb9d12195cd1f99677170",
+      "source_ref": "raw/code_graph/feature_flag_graph.json"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-skill-cache-fault-recovery",
+      "candidate_status": "reviewed",
+      "content_hash": "9291883de3380f6cdc2ab44a56a0057fe95d01b713d5f5085b91a96fe13c420a",
+      "source_ref": "raw/skills/cache_fault_recovery/SKILL.md"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-wiki-legacy-global-lookup",
+      "candidate_status": "corrected",
+      "content_hash": "7db8f110fc277ec8d45d582e672034d55ad381f9a637589fb6cf8cb644ad06fc",
+      "source_ref": "raw/wiki/legacy_global_fallback.md"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-memory-log-formatting",
+      "candidate_status": "reviewed",
+      "content_hash": "79dadc8378821b568e64e20891a0b718b4eacdda3a36e073ca676cbbaa298e4c",
+      "source_ref": "raw/sessions/log_formatting_session.jsonl"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-skill-full-cache-rebuild",
+      "candidate_status": "candidate",
+      "content_hash": "1e134fd7d2bee3464f8dd4d7e874cc1b51fa17ea3dd84064f1007b389b18b3ed",
+      "source_ref": "raw/skills/full_rebuild/SKILL.md"
+    },
+    {
+      "anchors_verified": true,
+      "asset_id": "asset-private-architecture-draft",
+      "candidate_status": "candidate",
+      "content_hash": "c267511fc5a650b3f5b76bc2a80c7dbe3d7cc2ab1603f40a12c4cec729a39d41",
+      "source_ref": "raw/wiki/feature_flag_availability.md"
+    }
+  ],
+  "schema_version": "team-asset-ingestion-audit/v1"
+}

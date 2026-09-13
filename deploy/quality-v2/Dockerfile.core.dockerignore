@@ -1,0 +1,9 @@
+**
+!MemoryCore/
+!MemoryCore/src/
+!MemoryCore/src/asset-quality/**
+!MemoryCore/src/metadata/**
+!MemoryCore/src/gateway/
+!MemoryCore/src/gateway/server.ts
+!MemoryCore/scripts/
+!MemoryCore/scripts/evaluate-asset-quality.ts

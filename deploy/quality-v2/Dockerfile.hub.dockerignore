@@ -1,0 +1,5 @@
+**
+!MemoryPanel/
+!MemoryPanel/dist/**
+!MemoryPanel/web/
+!MemoryPanel/web/dist/**

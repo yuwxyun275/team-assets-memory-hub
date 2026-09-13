@@ -1,0 +1,26 @@
+{
+  "team_id": "team-feature-platform",
+  "name": "Feature Platform Team",
+  "agents": [
+    {
+      "agent_id": "agent-architect-product",
+      "name": "架构与产品约束维护者",
+      "role": "Maintains authoritative product and architecture constraints"
+    },
+    {
+      "agent_id": "agent-senior-backend",
+      "name": "资深后端工程师",
+      "role": "Contributes accepted historical solutions and failure experience"
+    },
+    {
+      "agent_id": "agent-qa-sre",
+      "name": "QA/SRE 工程师",
+      "role": "Contributes executable validation and fault-recovery workflows"
+    },
+    {
+      "agent_id": "agent-new-backend",
+      "name": "新成员后端工程师",
+      "role": "Executes the new coding task using approved team assets"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Explicit install-script policy for the source build. Local model/plugin hosts
+# are optional and are not provisioned by the asset-system source checks.
+allowBuilds:
+  esbuild: true
+  protobufjs: true
+  koffi: true
+  tree-sitter-bash: true
+  es5-ext: true
+  '@google/genai': false
+  mongodb-memory-server: false
+  node-llama-cpp: false
+  openclaw: false
