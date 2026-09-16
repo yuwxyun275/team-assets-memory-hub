@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from typing import Dict, Iterable, List, Optional, Sequence, Set
 
 from .ledger import EvidenceLedger
+from .decision_policy import DecisionPolicy, DEFAULT_POLICY
 from .hybrid_retrieval import HybridAssetRetriever, RetrievalSignals
 from .models import (
     Asset,
@@ -36,11 +37,15 @@ class TeamAssetOrchestrator:
         ledger: Optional[EvidenceLedger] = None,
         historical_effects: Optional[Dict[str, float]] = None,
         retriever: Optional[HybridAssetRetriever] = None,
+        policy: DecisionPolicy = DEFAULT_POLICY,
+        as_of: Optional[datetime] = None,
     ) -> None:
         self.assets = list(assets)
         self.ledger = ledger or EvidenceLedger()
         self.historical_effects = dict(historical_effects or {})
-        self.retriever = retriever or HybridAssetRetriever()
+        self.as_of = as_of
+        self.policy = policy
+        self.retriever = retriever or HybridAssetRetriever(policy)
 
     def select(
         self,
@@ -61,11 +66,14 @@ class TeamAssetOrchestrator:
             if asset.team_id == task.team_id
             and ("*" in asset.allowed_agents or task.agent_id in asset.allowed_agents)
         ]
+        # Ineligible records must not distort IDF or consume the recall window.
+        if self.policy.retrieval != "legacy":
+            accessible = [a for a in accessible if not self._hard_gate(task, a) and a.asset_id not in excluded]
         retrieval_signals = self.retriever.rank(task, accessible)
         candidates = self.retriever.recalled_candidates(
             accessible,
             retrieval_signals,
-            limit=max(12, task.max_assets * 5),
+            limit=max(12, task.max_assets * 5) if self.policy.retrieval == "legacy" else self.policy.candidate_limit,
         )
 
         for asset in candidates:
@@ -83,7 +91,8 @@ class TeamAssetOrchestrator:
                     "score": selection.score,
                     "features": selection.features.to_dict(),
                     "retrieval": {
-                        "pipeline": "bm25+sparse_vector+native_graph+rrf",
+                        "pipeline": self.policy.retrieval,
+                        "policy": self.policy.to_dict(), "policy_sha256": self.policy.fingerprint,
                         "source_type": asset.source_type.value,
                         "runtime_asset_id": asset.runtime_asset_id,
                     },
@@ -138,6 +147,8 @@ class TeamAssetOrchestrator:
         return ContextPackage(trace, task, recalled, selected, rejected, token_cost, markdown)
 
     def _minimal_set(self, task: Task, eligible: Sequence[Selection]) -> List[Selection]:
+        if self.policy.retrieval != "legacy":
+            return self._budgeted_set(task, eligible)
         selected: List[Selection] = []
         selected_ids: Set[str] = set()
         token_cost = 0
@@ -174,20 +185,55 @@ class TeamAssetOrchestrator:
             token_cost += item.asset.token_cost
         return sorted(selected, key=lambda item: item.rank)
 
+    def _budgeted_set(self, task: Task, eligible: Sequence[Selection]) -> List[Selection]:
+        """Apply relevance first, cover capabilities, then fill unique content.
+
+        Source formats are not independent knowledge. Exact content/source keys
+        are deduplicated only when the producer supplied an explicit identity.
+        """
+        viable = [s for s in eligible if s.features.lexical_relevance > 0 or s.features.vector_relevance > 0 or s.features.graph_relevance > 0]
+        peak = max((s.score for s in viable), default=0)
+        viable = [s for s in viable if s.score >= peak * self.policy.minimum_relative_score]
+        selected: List[Selection] = []
+        keys: Set[str] = set()
+        tokens = 0
+
+        def take(item: Selection):
+            nonlocal tokens
+            key = str(item.asset.retrieval_handle.get("knowledge_key") or item.asset.content_hash or item.asset.asset_id)
+            if key in keys:
+                item.reasons.append("duplicate_content")
+                return
+            if len(selected) >= task.max_assets or tokens + item.asset.token_cost > task.token_budget:
+                item.reasons.append("context_budget")
+                return
+            selected.append(item)
+            keys.add(key)
+            tokens += item.asset.token_cost
+
+        for capability in task.required_capabilities or self.infer_capabilities(task):
+            item = next((s for s in viable if s.asset.asset_type is capability), None)
+            if item:
+                take(item)
+        for item in viable:
+            if item not in selected:
+                take(item)
+        return sorted(selected, key=lambda item: item.rank)
+
     def _score(self, task: Task, asset: Asset, retrieval: RetrievalSignals) -> Selection:
         lexical = retrieval.bm25
         task_type_match = 1.0 if task.task_type in asset.task_types or "*" in asset.task_types else 0.0
         path_match = 1.0 if set(task.target_paths) & set(asset.paths) else (0.45 if asset.paths else 0.25)
         trust = TRUST_BY_EVIDENCE[asset.evidence_state]
-        if asset.injection_mode == "reviewed_snapshot":
+        if asset.injection_mode in {"reviewed_snapshot", "reviewed_pointer"}:
             trust *= asset.native_signals.get("intrinsic_quality", 1.0)
-        freshness = self._freshness(asset.updated_at)
+        freshness = self._freshness(asset.updated_at, self.as_of)
         version_compatibility = 1.0 if task.version == "*" or asset.version in {"*", task.version} else 0.0
         capability_match = 1.0 if asset.asset_type in (task.required_capabilities or self.infer_capabilities(task)) else 0.25
         token_efficiency = min(1.0, 160.0 / max(40, asset.token_cost))
         contextual_effect = min(
             1.0,
-            max(0.0, asset.historical_effect + (0.0 if asset.injection_mode == "reviewed_snapshot" else self.historical_effects.get(asset.asset_id, 0.0))),
+            max(0.0, asset.historical_effect + (0.0 if asset.injection_mode in {"reviewed_snapshot", "reviewed_pointer"} else self.historical_effects.get(asset.asset_id, 0.0))),
         )
         features = SelectionFeatures(
             lexical_relevance=round(lexical, 4),
@@ -215,7 +261,12 @@ class TeamAssetOrchestrator:
             + capability_match * 0.11
             + token_efficiency * 0.04
         )
-        return Selection(asset=asset, score=round(score, 4), features=features, selected=False, reasons=[])
+        if self.policy.retrieval != "legacy":
+            # Q and version are admission evidence, not repeated relevance votes.
+            # U is an observational modifier with an explicit +/-5% influence cap.
+            adjustment = self.policy.feedback_max_adjustment * (2 * contextual_effect - 1)
+            score = retrieval.combined * (1 + adjustment)
+        return Selection(asset=asset, score=round(score, 6), features=features, selected=False, reasons=[])
 
     @staticmethod
     def _hard_gate(task: Task, asset: Asset) -> List[str]:
@@ -253,12 +304,12 @@ class TeamAssetOrchestrator:
         return {match.group(0).lower() for match in TOKEN_RE.finditer(text)}
 
     @staticmethod
-    def _freshness(value: str) -> float:
+    def _freshness(value: str, as_of: Optional[datetime] = None) -> float:
         try:
             updated = datetime.fromisoformat(value.replace("Z", "+00:00"))
             if updated.tzinfo is None:
                 updated = updated.replace(tzinfo=timezone.utc)
-            age_days = max(0.0, (datetime.now(timezone.utc) - updated).total_seconds() / 86400)
+            age_days = max(0.0, ((as_of or datetime.now(timezone.utc)) - updated).total_seconds() / 86400)
             return round(math.exp(-age_days / 730), 4)
         except ValueError:
             return 0.5

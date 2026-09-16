@@ -12,7 +12,7 @@ type Asset = { asset_id: string; name: string; asset_type: string; version: numb
 type Source = { id: string; kind: string; locator: string; revision?: string; repository?: string; content: string };
 type RecordRow = { key: string; data: Record<string, any>; updated: number };
 type Policy = { minimum_quality: number; retention_days: number; revision: number };
-type ContextUtility = { revision_id: string; context: { repository: string; task_type: string; environment: string }; score: number | null; samples: number; applicability_penalty: number };
+type ContextUtility = { revision_id: string; context: { repository: string; task_type: string; environment: string }; score: number | null; samples: number; applicability_penalty: number; credible_interval95?: [number, number]; decision_policy?: string };
 type Detail = { revisions: RecordRow[]; exposures: RecordRow[]; utility: { score: number | null; samples: number }; contextual_utility?: ContextUtility[]; publication: { revision_id: string } | null; policy: Policy };
 const states: Record<string, string> = { queued: '排队中', running: '评估中', needs_evidence: '待补证据或完善内容', rejected: '未通过', awaiting_approval: '待负责人审核', published: '已发布', suspended: '已暂停', failed: '评估服务失败，可重试', observing: '持续观察中' };
 const outcomes: Record<string, string> = { helpful: '有帮助', harmful: '带来问题', not_applicable: '当前环境不适用', content_error: '内容存在错误', unobserved: '未观察到足够证据' };
@@ -182,6 +182,8 @@ export function QualityPage() {
             <h3>场景使用分 U：{u.score === null ? '待观察' : `${(u.score * 100).toFixed(1)} / 100`}</h3>
             <p>仓库：{u.context.repository || '未提供'} · 任务类型：{u.context.task_type || '未提供'} · 环境：{u.context.environment || '未提供'}</p>
             <p>去重有效样本：{u.samples} · 场景不适用惩罚：{(u.applicability_penalty * 100).toFixed(2)} 个百分点。U 不是成功概率，也不会覆盖内容质量 Q。</p>
+            {u.credible_interval95 && <p>反馈模型的 95% 可信区间：{(u.credible_interval95[0] * 100).toFixed(1)}–{(u.credible_interval95[1] * 100).toFixed(1)}。样本少时区间较宽，不代表任务成功率。</p>}
+            {u.decision_policy && <p>同一任务只计一次。人工纠正替换当前评价，不叠加投票。保留期内不按天数自动降权。</p>}
             <p className="quality-id">发布版本：{u.revision_id}</p>
           </article>)}
           {!detail?.exposures.length && <p>尚无使用观察。请让关联了本团队和看板任务的 CodeBuddy 使用已发布资产。</p>}

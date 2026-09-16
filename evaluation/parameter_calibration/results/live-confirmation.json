@@ -1,0 +1,538 @@
+{
+  "kind": "real_model_bounded_code_generation_confirmation",
+  "protocol_sha256": "d3469988a90fe438d2bb3663f1a59fc301b6b617162172c6fa62526270312c15",
+  "dataset_hashes": {
+    "assets": "be9affffe0170c5af625fc92999c8e8709cabb554c61f821a432723ccacb1b04",
+    "tasks": "5a4cf25ce273c99ce81b782acea2dddb5287716b262824ad92066bafe5590566",
+    "annotations": "a531548b1789c25b6cc6fd2db701ed4b0f67318c00cb0e5ee6ac18be8f9e3531"
+  },
+  "records": [
+    {
+      "run_id": "task-05-inventory-selected_policy-2",
+      "task_id": "task-05-inventory",
+      "arm": "selected_policy",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "d860904694ed2a8f51927aaccb6f25f56db34fd1615373d6c55f699f34ed2e2f",
+      "selected_assets": [
+        "arb1-skill-031",
+        "arb1-code_graph-033",
+        "arb1-chat_memory-031",
+        "arb1-skill-049",
+        "arb1-chat_memory-049",
+        "arb1-skill-036",
+        "arb1-skill-032",
+        "arb1-chat_memory-032"
+      ],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": "7bc0bfe2ba3463599a10f2fa8ebf19744bc913fe94870000594aa819a853772c",
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 2950,
+        "completion_tokens": 4096,
+        "total_tokens": 7046,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2950
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "wall_seconds": 18.283
+    },
+    {
+      "run_id": "task-10-billing-selected_policy-2",
+      "task_id": "task-10-billing",
+      "arm": "selected_policy",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "655135a83fd660a0da51ea06c67d52951d068d911d7231161c0baa60264c30f5",
+      "selected_assets": [
+        "arb1-code_graph-074",
+        "arb1-chat_memory-079",
+        "arb1-llm_wiki-084",
+        "arb1-llm_wiki-077",
+        "arb1-chat_memory-084",
+        "arb1-llm_wiki-076",
+        "arb1-skill-079",
+        "arb1-chat_memory-077"
+      ],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": "7bc0bfe2ba3463599a10f2fa8ebf19744bc913fe94870000594aa819a853772c",
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1851,
+        "completion_tokens": 3981,
+        "total_tokens": 5832,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3516
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1851
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [
+        "arb1-llm_wiki-076",
+        "arb1-llm_wiki-077",
+        "arb1-skill-079",
+        "arb1-llm_wiki-084"
+      ],
+      "reason": "按合同 R01/R04 改为每行完整单价乘数量后 ROUND_HALF_UP 舍入到两位，再逐行求和；抵扣舍入保持不变。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_credit_never_negative (__main__.Acceptance.test_credit_never_negative) ... ok\ntest_currency_not_mixed (__main__.Acceptance.test_currency_not_mixed) ... ok\ntest_empty_and_output (__main__.Acceptance.test_empty_and_output) ... ok\ntest_invalid_numeric_input (__main__.Acceptance.test_invalid_numeric_input) ... ok\ntest_round_each_line (__main__.Acceptance.test_round_each_line) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nOK\n",
+        "test_sha256": "d6e905b065a5259063d5556055ca110d5910dd7b3941562ed5e77c16d28b67d0",
+        "code_sha256": "af465a43c2dd10090c9fabf94adbc32d8efb68e64761eb78522b33f94855367b",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 15.537,
+      "code_file": "generated-code/task-10-billing-selected_policy-2.py"
+    },
+    {
+      "run_id": "task-10-billing-legacy-2",
+      "task_id": "task-10-billing",
+      "arm": "legacy",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "4ccdb0300a7bb35498c362e7371ce0740a16c407c7ecb99b1e2e5309e345ef8f",
+      "selected_assets": [
+        "arb1-code_graph-074",
+        "arb1-code_graph-073",
+        "arb1-llm_wiki-079",
+        "arb1-chat_memory-079",
+        "arb1-skill-079"
+      ],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1638,
+        "completion_tokens": 4003,
+        "total_tokens": 5641,
+        "prompt_tokens_details": {
+          "cached_tokens": 512
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3530
+        },
+        "prompt_cache_hit_tokens": 512,
+        "prompt_cache_miss_tokens": 1126
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [
+        "arb1-llm_wiki-079",
+        "arb1-chat_memory-079",
+        "arb1-skill-079",
+        "arb1-code_graph-073",
+        "arb1-code_graph-074"
+      ],
+      "reason": "按契约要求，在 line_total 中对完整单价乘数量后逐行舍入，避免仅最终总额舍入造成多行小金额偏差。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_credit_never_negative (__main__.Acceptance.test_credit_never_negative) ... ok\ntest_currency_not_mixed (__main__.Acceptance.test_currency_not_mixed) ... ok\ntest_empty_and_output (__main__.Acceptance.test_empty_and_output) ... ok\ntest_invalid_numeric_input (__main__.Acceptance.test_invalid_numeric_input) ... ok\ntest_round_each_line (__main__.Acceptance.test_round_each_line) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n",
+        "test_sha256": "d6e905b065a5259063d5556055ca110d5910dd7b3941562ed5e77c16d28b67d0",
+        "code_sha256": "3241d14b2a137c3c941bd162cf273a0d24dbef8c7ef08d0f93d7c54f8b717770",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 15.716,
+      "code_file": "generated-code/task-10-billing-legacy-2.py"
+    },
+    {
+      "run_id": "task-05-inventory-legacy-2",
+      "task_id": "task-05-inventory",
+      "arm": "legacy",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "bb12d1a45af3f326f9f9b1d50bc0ba364885e6eb7d8930fab03d1639d72c8bdb",
+      "selected_assets": [
+        "arb1-code_graph-035",
+        "arb1-code_graph-037",
+        "arb1-code_graph-036",
+        "arb1-code_graph-034",
+        "arb1-code_graph-040",
+        "arb1-llm_wiki-031",
+        "arb1-chat_memory-031",
+        "arb1-skill-031"
+      ],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 2324,
+        "completion_tokens": 1609,
+        "total_tokens": 3933,
+        "prompt_tokens_details": {
+          "cached_tokens": 512
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 926
+        },
+        "prompt_cache_hit_tokens": 512,
+        "prompt_cache_miss_tokens": 1812
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [
+        "arb1-code_graph-034",
+        "arb1-code_graph-035",
+        "arb1-code_graph-036",
+        "arb1-code_graph-037",
+        "arb1-code_graph-040",
+        "arb1-llm_wiki-031",
+        "arb1-skill-031"
+      ],
+      "reason": "原 reserve 中 existing 恒为 None，导致幂等分支与参数冲突检查失效，同一 (tenant, request_id) 重复提交会再次扣减库存；改为从 self.reservations 读取 existing，保持公开 API 与释放语义不变。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_atomic_failure (__main__.Acceptance.test_atomic_failure) ... ok\ntest_idempotence_and_conflict (__main__.Acceptance.test_idempotence_and_conflict) ... ok\ntest_invalid_quantities (__main__.Acceptance.test_invalid_quantities) ... ok\ntest_missing_release_and_snapshot_copy (__main__.Acceptance.test_missing_release_and_snapshot_copy) ... ok\ntest_release_once (__main__.Acceptance.test_release_once) ... ok\ntest_tenant_keys (__main__.Acceptance.test_tenant_keys) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+        "test_sha256": "0aa3d82053074701362cda537c4661329e2c56aba7e33c00fdc547374fe1b52d",
+        "code_sha256": "03c620ed811ad961884dfa96966b1e87f3559931a5da612035a8966a8da33062",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 6.965,
+      "code_file": "generated-code/task-05-inventory-legacy-2.py"
+    },
+    {
+      "run_id": "task-10-billing-none-2",
+      "task_id": "task-10-billing",
+      "arm": "none",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "a3535ed76e6634893b39977b1b9bb4eacef0446ad388d134f5f6b6e4a27cf688",
+      "selected_assets": [],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 568,
+        "completion_tokens": 4096,
+        "total_tokens": 4664,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 184
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "wall_seconds": 18.723
+    },
+    {
+      "run_id": "task-05-inventory-selected_policy-1",
+      "task_id": "task-05-inventory",
+      "arm": "selected_policy",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "d860904694ed2a8f51927aaccb6f25f56db34fd1615373d6c55f699f34ed2e2f",
+      "selected_assets": [
+        "arb1-skill-031",
+        "arb1-code_graph-033",
+        "arb1-chat_memory-031",
+        "arb1-skill-049",
+        "arb1-chat_memory-049",
+        "arb1-skill-036",
+        "arb1-skill-032",
+        "arb1-chat_memory-032"
+      ],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": "7bc0bfe2ba3463599a10f2fa8ebf19744bc913fe94870000594aa819a853772c",
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 2950,
+        "completion_tokens": 4071,
+        "total_tokens": 7021,
+        "prompt_tokens_details": {
+          "cached_tokens": 2816
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3448
+        },
+        "prompt_cache_hit_tokens": 2816,
+        "prompt_cache_miss_tokens": 134
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [
+        "arb1-skill-031",
+        "arb1-skill-032"
+      ],
+      "reason": "reserve 未从 self.reservations 读取已有预留，导致重复请求重复扣库存；改为 existing = self.reservations.get(key)，并保留 lines 冲突校验。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_atomic_failure (__main__.Acceptance.test_atomic_failure) ... ok\ntest_idempotence_and_conflict (__main__.Acceptance.test_idempotence_and_conflict) ... ok\ntest_invalid_quantities (__main__.Acceptance.test_invalid_quantities) ... ok\ntest_missing_release_and_snapshot_copy (__main__.Acceptance.test_missing_release_and_snapshot_copy) ... ok\ntest_release_once (__main__.Acceptance.test_release_once) ... ok\ntest_tenant_keys (__main__.Acceptance.test_tenant_keys) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+        "test_sha256": "0aa3d82053074701362cda537c4661329e2c56aba7e33c00fdc547374fe1b52d",
+        "code_sha256": "03c620ed811ad961884dfa96966b1e87f3559931a5da612035a8966a8da33062",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 15.928,
+      "code_file": "generated-code/task-05-inventory-selected_policy-1.py"
+    },
+    {
+      "run_id": "task-10-billing-legacy-1",
+      "task_id": "task-10-billing",
+      "arm": "legacy",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "4ccdb0300a7bb35498c362e7371ce0740a16c407c7ecb99b1e2e5309e345ef8f",
+      "selected_assets": [
+        "arb1-code_graph-074",
+        "arb1-code_graph-073",
+        "arb1-llm_wiki-079",
+        "arb1-chat_memory-079",
+        "arb1-skill-079"
+      ],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1638,
+        "completion_tokens": 3649,
+        "total_tokens": 5287,
+        "prompt_tokens_details": {
+          "cached_tokens": 1408
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3168
+        },
+        "prompt_cache_hit_tokens": 1408,
+        "prompt_cache_miss_tokens": 230
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [
+        "arb1-llm_wiki-079",
+        "arb1-skill-079",
+        "arb1-code_graph-073"
+      ],
+      "reason": "按项目契约，行金额需先完整单价乘数量再逐行舍入；原 line_total 未舍入，小计累加未舍入行金额不符合约定。改为乘法后 round_money，保持公开 API 不变。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_credit_never_negative (__main__.Acceptance.test_credit_never_negative) ... ok\ntest_currency_not_mixed (__main__.Acceptance.test_currency_not_mixed) ... ok\ntest_empty_and_output (__main__.Acceptance.test_empty_and_output) ... ok\ntest_invalid_numeric_input (__main__.Acceptance.test_invalid_numeric_input) ... ok\ntest_round_each_line (__main__.Acceptance.test_round_each_line) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n",
+        "test_sha256": "d6e905b065a5259063d5556055ca110d5910dd7b3941562ed5e77c16d28b67d0",
+        "code_sha256": "3241d14b2a137c3c941bd162cf273a0d24dbef8c7ef08d0f93d7c54f8b717770",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 16.366,
+      "code_file": "generated-code/task-10-billing-legacy-1.py"
+    },
+    {
+      "run_id": "task-05-inventory-none-2",
+      "task_id": "task-05-inventory",
+      "arm": "none",
+      "repeat": 2,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "8bcc65f23fd123f869ae22023eb5bbeab825b19f2911ad45d6a098b48900f210",
+      "selected_assets": [],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 734,
+        "completion_tokens": 4096,
+        "total_tokens": 4830,
+        "prompt_tokens_details": {
+          "cached_tokens": 512
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 3518
+        },
+        "prompt_cache_hit_tokens": 512,
+        "prompt_cache_miss_tokens": 222
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Unterminated string starting at: line 1 column 2098 (char 2097)",
+      "wall_seconds": 17.988
+    },
+    {
+      "run_id": "task-05-inventory-legacy-1",
+      "task_id": "task-05-inventory",
+      "arm": "legacy",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "bb12d1a45af3f326f9f9b1d50bc0ba364885e6eb7d8930fab03d1639d72c8bdb",
+      "selected_assets": [
+        "arb1-code_graph-035",
+        "arb1-code_graph-037",
+        "arb1-code_graph-036",
+        "arb1-code_graph-034",
+        "arb1-code_graph-040",
+        "arb1-llm_wiki-031",
+        "arb1-chat_memory-031",
+        "arb1-skill-031"
+      ],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 2324,
+        "completion_tokens": 4096,
+        "total_tokens": 6420,
+        "prompt_tokens_details": {
+          "cached_tokens": 2176
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "prompt_cache_hit_tokens": 2176,
+        "prompt_cache_miss_tokens": 148
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "wall_seconds": 21.858
+    },
+    {
+      "run_id": "task-10-billing-none-1",
+      "task_id": "task-10-billing",
+      "arm": "none",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "a3535ed76e6634893b39977b1b9bb4eacef0446ad388d134f5f6b6e4a27cf688",
+      "selected_assets": [],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 568,
+        "completion_tokens": 4096,
+        "total_tokens": 4664,
+        "prompt_tokens_details": {
+          "cached_tokens": 384
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 184
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "wall_seconds": 22.233
+    },
+    {
+      "run_id": "task-05-inventory-none-1",
+      "task_id": "task-05-inventory",
+      "arm": "none",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "8bcc65f23fd123f869ae22023eb5bbeab825b19f2911ad45d6a098b48900f210",
+      "selected_assets": [],
+      "baseline_sha256": "4d734a49ad9bba3afb6c2a15ab006b77ad701ac777280db9d560037fdc53a3a1",
+      "policy_sha256": null,
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 734,
+        "completion_tokens": 2367,
+        "total_tokens": 3101,
+        "prompt_tokens_details": {
+          "cached_tokens": 512
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1765
+        },
+        "prompt_cache_hit_tokens": 512,
+        "prompt_cache_miss_tokens": 222
+      },
+      "finish_reason": "stop",
+      "self_reported_asset_ids": [],
+      "reason": "将 existing 从硬编码 None 改为从 reservations 获取，避免重复 request_id 再次扣减库存并实现幂等 payload 冲突检查。",
+      "verification": {
+        "exit_code": 0,
+        "success": true,
+        "output": "test_atomic_failure (__main__.Acceptance.test_atomic_failure) ... ok\ntest_idempotence_and_conflict (__main__.Acceptance.test_idempotence_and_conflict) ... ok\ntest_invalid_quantities (__main__.Acceptance.test_invalid_quantities) ... ok\ntest_missing_release_and_snapshot_copy (__main__.Acceptance.test_missing_release_and_snapshot_copy) ... ok\ntest_release_once (__main__.Acceptance.test_release_once) ... ok\ntest_tenant_keys (__main__.Acceptance.test_tenant_keys) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+        "test_sha256": "0aa3d82053074701362cda537c4661329e2c56aba7e33c00fdc547374fe1b52d",
+        "code_sha256": "03c620ed811ad961884dfa96966b1e87f3559931a5da612035a8966a8da33062",
+        "runner": "macOS sandbox-exec, network denied, test read-only"
+      },
+      "wall_seconds": 10.69,
+      "code_file": "generated-code/task-05-inventory-none-1.py"
+    },
+    {
+      "run_id": "task-10-billing-selected_policy-1",
+      "task_id": "task-10-billing",
+      "arm": "selected_policy",
+      "repeat": 1,
+      "model_requested": "deepseek-v4-flash",
+      "request_sha256": "655135a83fd660a0da51ea06c67d52951d068d911d7231161c0baa60264c30f5",
+      "selected_assets": [
+        "arb1-code_graph-074",
+        "arb1-chat_memory-079",
+        "arb1-llm_wiki-084",
+        "arb1-llm_wiki-077",
+        "arb1-chat_memory-084",
+        "arb1-llm_wiki-076",
+        "arb1-skill-079",
+        "arb1-chat_memory-077"
+      ],
+      "baseline_sha256": "4dd32e37486737f8ea059cd0e07fa306a9373613582c1671612701ab80c23377",
+      "policy_sha256": "7bc0bfe2ba3463599a10f2fa8ebf19744bc913fe94870000594aa819a853772c",
+      "model_returned": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 1851,
+        "completion_tokens": 4096,
+        "total_tokens": 5947,
+        "prompt_tokens_details": {
+          "cached_tokens": 1664
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "prompt_cache_hit_tokens": 1664,
+        "prompt_cache_miss_tokens": 187
+      },
+      "finish_reason": "length",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "wall_seconds": 18.608
+    }
+  ],
+  "requests": 12,
+  "cost_scope": "Provider usage reported. Price not verified, currency cost unknown. No background reviews were called in this microbenchmark. Historical asset construction and human review excluded and disclosed.",
+  "adoption_scope": "used_assets are model self-reports, not trusted asset_used events.",
+  "limitations": [
+    "Two tasks with two repeats each. Repeats are not independent tasks.",
+    "Not a CodeBuddy CLI comparison. The report keeps the earlier real CLI case separate."
+  ],
+  "aggregate": [
+    {
+      "arm": "none",
+      "runs": 4,
+      "independent_tasks": 2,
+      "passed": 1,
+      "truncated": 3,
+      "prompt_tokens": 2604,
+      "completion_tokens": 14655,
+      "wall_seconds": 69.634
+    },
+    {
+      "arm": "legacy",
+      "runs": 4,
+      "independent_tasks": 2,
+      "passed": 3,
+      "truncated": 1,
+      "prompt_tokens": 7924,
+      "completion_tokens": 13357,
+      "wall_seconds": 60.905
+    },
+    {
+      "arm": "selected_policy",
+      "runs": 4,
+      "independent_tasks": 2,
+      "passed": 2,
+      "truncated": 2,
+      "prompt_tokens": 9602,
+      "completion_tokens": 16244,
+      "wall_seconds": 68.356
+    }
+  ]
+}

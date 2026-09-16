@@ -174,3 +174,7 @@ z_config/
 !**/package-lock.json
 !/docs/technical-report.pdf
 !MemoryCore/pnpm-lock.yaml
+
+# Reviewed public calibration evidence, not private runtime results.
+!/evaluation/parameter_calibration/results/
+!/evaluation/parameter_calibration/results/**

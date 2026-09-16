@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Dict, Iterable, Mapping, Sequence
 
 from .models import Asset, SourceType, Task
+from .decision_policy import DecisionPolicy, DEFAULT_POLICY
 
 
 _LATIN_RE = re.compile(r"[a-zA-Z_][a-zA-Z0-9_./:-]*")
@@ -35,6 +36,9 @@ class HybridAssetRetriever:
     fetched after selection through the permission-checked retrieval handle.
     """
 
+    def __init__(self, policy: DecisionPolicy = DEFAULT_POLICY):
+        self.policy = policy
+
     def rank(self, task: Task, assets: Sequence[Asset]) -> Dict[str, RetrievalSignals]:
         if not assets:
             return {}
@@ -55,13 +59,13 @@ class HybridAssetRetriever:
 
         rankings: list[tuple[float, list[str]]] = [
             (1.0, _positive_rank(bm25)),
-            (0.85, _positive_rank(vector)),
-            (0.75, _positive_rank(graph)),
+            (0.85 if self.policy.retrieval == "legacy" else 1.0, _positive_rank(vector)),
+            (0.75 if self.policy.retrieval == "legacy" else 1.0, _positive_rank(graph)),
         ]
         rrf_raw: Dict[str, float] = defaultdict(float)
         for weight, ranking in rankings:
             for rank, asset_id in enumerate(ranking, start=1):
-                rrf_raw[asset_id] += weight / (60.0 + rank)
+                rrf_raw[asset_id] += weight / ((60 if self.policy.retrieval == "legacy" else self.policy.rrf_k) + rank)
         rrf = _normalize(rrf_raw)
 
         result: Dict[str, RetrievalSignals] = {}
@@ -71,7 +75,8 @@ class HybridAssetRetriever:
             vec = vector.get(asset_id, 0.0)
             gr = graph.get(asset_id, 0.0)
             fusion = rrf.get(asset_id, 0.0)
-            combined = bm * 0.34 + vec * 0.24 + gr * 0.16 + fusion * 0.26
+            combined = (bm * 0.34 + vec * 0.24 + gr * 0.16 + fusion * 0.26
+                        if self.policy.retrieval == "legacy" else bm if self.policy.retrieval == "bm25" else fusion)
             result[asset_id] = RetrievalSignals(
                 bm25=round(bm, 4),
                 vector=round(vec, 4),

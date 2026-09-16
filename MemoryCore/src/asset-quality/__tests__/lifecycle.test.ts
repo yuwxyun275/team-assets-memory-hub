@@ -75,7 +75,7 @@ describe("durable quality lifecycle", () => {
   it.each(["llm_wiki", "chat_memory", "code_graph", "skill"] as const)("publishes a specific %s version only after evidence and human approval", async type => {
     const { lifecycle: l } = setup(); const p = await publish(l, type);
     expect(p.snapshot.asset_type).toBe(type); expect(p.report.scorecard?.quality).toBe(100);
-    expect(p.approved_by).toBe("reviewer"); expect(p.report.scorecard?.calibration).toBe("provisional_not_calibrated");
+    expect(p.approved_by).toBe("reviewer"); expect(p.report.scorecard?.calibration).toBe("equal_dimension_policy");
   });
   it("does not allow publication without evaluation", async () => {
     const { lifecycle: l } = setup(); const r = await l.submit("team-1", "owner", 1, snapshot());

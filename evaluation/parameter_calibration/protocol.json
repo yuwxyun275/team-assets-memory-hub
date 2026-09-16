@@ -1,0 +1,14 @@
+{
+  "schema": "parameter-validation/v1",
+  "frozen_before_execution": "2026-09-16",
+  "data": "asset_recommendation_bench: four synthetic repositories, twelve tasks, four hundred source-linked assets",
+  "label_origin": "developer_authored_contract_not_expert_gold",
+  "split": {"development": ["flags", "inventory", "webhook"], "locked_test": ["billing"], "group_unit": "repository; duplicated source representations stay together"},
+  "selection_order": ["zero permission/version/status violations", "highest mean unique required-information coverage on development repositories", "lowest irrelevant selection fraction", "lowest estimated context tokens", "simplest configuration on exact ties"],
+  "candidates": {"retrieval": ["legacy", "bm25", "rrf"], "rrf_k": [10, 30, 60, 100], "minimum_relative_score": [0.2, 0.4, 0.6], "candidate_limit": [12, 24, 48]},
+  "fixed_constraints": {"max_assets": 8, "token_budget": 6000, "rrf_channel_weights": "equal", "quality_threshold": 80, "no_automatic_publication": true},
+  "quality_analysis": "Replay all 400 stored review reports. Only the 80 deliberately defective assets are negative labels. Other assets are unlabelled, never assumed acceptable. Compare equal and legacy dimension aggregation without changing the team threshold.",
+  "usage_policy": "No fitted decay or actor credibility without longitudinal adjudicated data. One task is one vote. Retain a symmetric shrinkage prior under an explicit single-observation influence budget. Report a posterior interval, not a model accuracy claim.",
+  "real_confirmation": {"tasks": ["task-05-inventory", "task-10-billing"], "arms": ["none", "legacy", "selected_policy"], "repetitions": 2, "max_new_requests": 12, "max_completion_tokens_per_request": 4096, "budget_scope": "bounded confirmation, not a powered superiority trial"},
+  "prohibitions": ["No tuning using locked-test labels", "No evaluator answers in model context", "No publication of private team records", "No claiming same-task reruns as independent tasks", "No claiming global parameter optimality"]
+}

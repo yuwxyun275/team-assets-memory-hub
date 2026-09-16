@@ -33,5 +33,6 @@ jobs:
       - run: npm run build --prefix MemoryPanel
       - run: npm run test:oss --prefix MemoryCore
       - run: node scripts/verify-competition.mjs
+      - run: python3 evaluation/parameter_calibration/verify.py
       - run: npm pack --dry-run
         working-directory: MemoryCore

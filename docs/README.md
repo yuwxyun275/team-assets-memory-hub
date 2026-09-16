@@ -9,6 +9,7 @@
 | 项目做什么，完整闭环是什么 | [项目首页](../README.md) |
 | 从源码安装，打开界面并体验 | [安装与体验](GETTING_STARTED_CN.md) |
 | 六项竞赛任务、流程图与真实库存案例 | [技术报告 PDF](technical-report.pdf) |
+| 参数如何决定，实验得到了什么 | [参数依据与结果](PARAMETER_EVIDENCE_CN.md) · [复现实验](../evaluation/parameter_calibration/README.md) |
 | 原始材料如何提炼、审核和回流 | [资产学习机制](../MemoryCore/docs/ASSET_LEARNING_CN.md) |
 | 如何验证打包、部署与 CLI 协议 | [本地验收说明](../deploy/quality-v2/ACCEPTANCE.md) |
 | 检索、使用归因与反事实评测 | [TeamAssetBench](../evaluation/team_asset_bench/README.md) |

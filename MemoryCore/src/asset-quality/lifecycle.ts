@@ -1,3 +1,4 @@
+import { DECISION_POLICY, usagePosterior } from "./decision-policy.js";
 import { withModelUsage } from "./model-usage.js";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
@@ -80,8 +81,8 @@ export class QualityLifecycle {
   }
   async policy(team: string) {
     const record = await this.records.get(`policy:${team}`);
-    return { revision: record?.rev ?? 0, minimum_quality: 80, retention_days: 30, review_daily_limit: 200, review_queue_limit: 50, review_parallelism: 1, ...record?.data,
-      scoring_policy: POLICY_VERSION, calibration: "provisional_not_calibrated", automatic_publication: false };
+    return { revision: record?.rev ?? 0, minimum_quality: DECISION_POLICY.quality.defaultMinimum, retention_days: 30, review_daily_limit: 200, review_queue_limit: 50, review_parallelism: 1, ...record?.data,
+      scoring_policy: POLICY_VERSION, calibration: "explicit_policy_with_contract_validation", automatic_publication: false };
   }
   async setPolicy(team: string, actor: string, input: unknown) {
     const { expected_revision, ...data } = policySchema.parse(input);
@@ -261,9 +262,9 @@ export class QualityLifecycle {
     // Repeated injection on ten turns of the same task is ONE correlated sample, not ten votes.
     let samples = deduplicateUsage(exposures.filter(r => (!revisionId || r.data.revision_id === revisionId)
       && (!context || sameEnvironment(r.data.context, context))
-      && (!before || (context && revisionId && r.data.before && sceneSimilarity(before, r.data.before) >= .6))));
+      && (!before || (context && revisionId && r.data.before && sceneSimilarity(before, r.data.before) >= DECISION_POLICY.usage.sceneSimilarity))));
     // Scene learning counts independent tasks, not actors/sessions/repeated injections.
-    if (before) {
+    {
       const tasks = new Map<string, QualityRecord>();
       for (const r of samples.sort((a, b) => b.updated - a.updated)) if (!tasks.has(r.data.task_id)) tasks.set(r.data.task_id, r);
       samples = [...tasks.values()];
@@ -272,28 +273,37 @@ export class QualityLifecycle {
     for (const r of samples) {
       const fit = currentApplicability(r.data);
       if (before && fit && ["applicable", "not_applicable"].includes(fit.verdict)) {
-        const w = .5 * Math.exp(-Math.max(0, Date.now() - r.data.created) / (90 * 86400000));
+        const w = DECISION_POLICY.usage.actorWeight;
         fits++; fitWeight += w; fitBalance += fit.verdict === "applicable" ? w : -w;
       }
       const result = currentUsageAssessment(r.data);
       if (!result) continue;
-      const weight = (result.source === "human" ? 1 : .5) * Math.exp(-(Date.now() - r.data.created) / (90 * 86400000));
+      const weight = DECISION_POLICY.usage.actorWeight;
       if (result.outcome === "not_applicable") { if (!before || !fit) inapplicable += weight; continue; }
       if (!["helpful", "harmful"].includes(result.outcome)) continue;
       if (result.outcome === "helpful") positive += weight; else negative += weight;
       count++;
     }
     const effective = positive + negative;
-    return { score: count ? .5 + (positive - negative) / (2 * (10 + effective)) : null,
-      samples: count, effective_samples: effective, uncertainty: count ? Math.min(1, Math.sqrt(Math.log(40) / (2 * effective))) : null,
-      applicability_penalty: Math.min(.15, .15 * inapplicable / (10 + inapplicable + effective)),
+    const prior = DECISION_POLICY.usage.priorPositive + DECISION_POLICY.usage.priorNegative;
+    const posterior = usagePosterior(positive, negative);
+    return { score: count ? posterior.mean : null,
+      samples: count, effective_samples: effective,
+      uncertainty: count ? posterior.standardDeviation : null,
+      uncertainty_kind: "posterior_standard_deviation_not_accuracy",
+      credible_interval95: count ? posterior.interval95 : null,
+      prior: { positive: DECISION_POLICY.usage.priorPositive, negative: DECISION_POLICY.usage.priorNegative },
+      applicability_penalty: DECISION_POLICY.usage.maxAdjustment * inapplicable / (prior + inapplicable + effective),
       inapplicable_evidence: inapplicable,
-      applicability_adjustment: before && fits >= 3 ? .05 * fitBalance / (10 + fitWeight) : 0,
-      scene_learning: before ? { method: "lexical_jaccard/v1", similarity_threshold: .6, matched_tasks: samples.length,
-        fit_tasks: fits, minimum_fit_tasks: 3, max_adjustment: .05, calibrated: false,
-        scope: "same_repository_environment_task_type_and_revision", legacy_without_scene_excluded: true } : null,
-      method: before ? "scene_contextual_shrinkage/v2_provisional" : "contextual_shrinkage_v1_provisional", causal_claim: false };
+      applicability_adjustment: before && fits >= DECISION_POLICY.usage.minimumFitTasks
+        ? DECISION_POLICY.usage.maxAdjustment * fitBalance / (prior + fitWeight) : 0,
+      scene_learning: before ? { method: "exact_normalized_terms/v1", similarity_threshold: DECISION_POLICY.usage.sceneSimilarity, matched_tasks: samples.length,
+        fit_tasks: fits, minimum_fit_tasks: DECISION_POLICY.usage.minimumFitTasks, max_adjustment: DECISION_POLICY.usage.maxAdjustment, calibrated: false,
+        scope: "same_repository_environment_task_type_revision_and_normalized_query", legacy_without_scene_excluded: true } : null,
+      decision_policy: DECISION_POLICY.version,
+      method: "task_deduplicated_beta/v3", causal_claim: false };
   }
+
   contextualUtilities(exposures: QualityRecord[]) {
     const groups = new Map<string, QualityRecord>();
     for (const r of exposures) groups.set(JSON.stringify([r.data.revision_id, r.data.context]), r);

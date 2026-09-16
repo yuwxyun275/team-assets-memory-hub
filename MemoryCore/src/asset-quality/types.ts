@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { workflowScopeSchema } from "./learning-workflow.js";
 
-export const POLICY_VERSION = "intrinsic-quality/v2";
+export const POLICY_VERSION = "intrinsic-quality/v3";
 const id = z.string().trim().min(1).max(200);
 const text = z.string().max(60_000);
 

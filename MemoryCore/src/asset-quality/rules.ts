@@ -51,6 +51,18 @@ export function runRules(s: QualitySnapshot): { checks: QualityCheck[]; blockMod
     "仅检查是否提交材料；来源名称、哈希和引用命中均不证明来源真实或内容正确。"));
   if (secrets || !s.body.trim()) return { checks, blockModel: true };
 
+  // A direct instruction to hide a failing test and assert success requires
+  // clarification even if a model gives a high score. Negated warnings remain
+  // valid failure-experience content. This narrow rule is not a semantic audit.
+  const integrityConflict = s.body.split(/\r?\n/).find(line => {
+    if (/(?:禁止|不得|不要|不应|不可|do not|never|must not).{0,18}(?:删除|跳过|隐藏|伪造|delete|skip|hide|fabricate)/i.test(line)) return false;
+    return /(?:删除|跳过|隐藏).{0,15}(?:失败|未通过).{0,8}(?:测试|检查).{0,50}(?:报告|声称|宣称).{0,20}(?:通过|成功)/.test(line)
+      || /(?:delete|skip|hide).{0,20}fail(?:ing|ed)? (?:tests?|checks?).{0,60}(?:report|claim).{0,20}(?:pass|success)/i.test(line);
+  });
+  if (integrityConflict) checks.push(check("input.verification_integrity", "验证诚信冲突", "unknown",
+    "正文包含隐藏失败并报告成功的指令。需要修订或明确反例语境，高分不能抵消此项。",
+    cite("asset", s.body, s.body.indexOf(integrityConflict), s.body.indexOf(integrityConflict) + integrityConflict.length)));
+
   if (s.asset_type === "skill") {
     try {
       const skill = parseSkillFile(s.body);
